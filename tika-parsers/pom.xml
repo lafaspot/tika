@@ -23,9 +23,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.apache.tika</groupId>
+    <groupId>com.github.lafa.tikaNoExternal</groupId>
     <artifactId>tika-parent</artifactId>
-    <version>1.15-SNAPSHOT</version>
+    <version>1.0.0</version>
     <relativePath>../tika-parent/pom.xml</relativePath>
   </parent>
 
@@ -41,11 +41,9 @@
     <!-- NOTE: sync tukaani version with commons-compress in tika-parent-->
     <tukaani.version>1.5</tukaani.version>
     <mime4j.version>0.7.2</mime4j.version>
-    <vorbis.version>0.8</vorbis.version>
     <pdfbox.version>2.0.4</pdfbox.version>
     <jempbox.version>1.8.12</jempbox.version>
     <netcdf-java.version>4.5.5</netcdf-java.version>
-    <cxf.version>3.0.3</cxf.version>
     <sis.version>0.6</sis.version>
     <!-- used by POI, PDFBox and Jackcess ...try to sync -->
     <bouncycastle.version>1.54</bouncycastle.version>
@@ -77,11 +75,6 @@
     </dependency>
 
     <!-- Externally Maintained Parsers -->
-    <dependency>
-      <groupId>org.gagravarr</groupId>
-      <artifactId>vorbis-java-tika</artifactId>
-      <version>${vorbis.version}</version>
-    </dependency>
     <dependency>
       <groupId>com.healthmarketscience.jackcess</groupId>
       <artifactId>jackcess</artifactId>
@@ -228,11 +221,6 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>org.gagravarr</groupId>
-      <artifactId>vorbis-java-core</artifactId>
-      <version>${vorbis.version}</version>
-    </dependency>
-    <dependency>
       <groupId>com.googlecode.juniversalchardet</groupId>
       <artifactId>juniversalchardet</artifactId>
       <version>1.0.3</version>
@@ -252,19 +240,6 @@
       <artifactId>junrar</artifactId>
       <version>0.7</version>
     </dependency>
-	<dependency>
-      <groupId>org.apache.cxf</groupId>
-      <artifactId>cxf-rt-rs-client</artifactId>
-      <version>${cxf.version}</version>
-    </dependency>
-    <!-- TIKA-2021: Tesseract OCR Parser dependencies, 
-    used for executing image processing script -->
-	<dependency>
-	    <groupId>org.apache.commons</groupId>
-	    <artifactId>commons-exec</artifactId>
-	    <version>${commonsexec.version}</version>
-	    <scope>compile</scope>
-	</dependency>
 
     <!-- Provided dependencies -->
     <dependency>
@@ -569,4 +544,15 @@
       </build>
     </profile>
   </profiles>
+  
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
 </project>
