@@ -123,6 +123,8 @@ public class AutoDetectParser extends CompositeParser {
                 sch.throwIfCauseOf(e);
                 throw e;
             }
+        } catch (Error error) {
+        	// Ignore all types of errors
         } finally {
             tmp.dispose();
         }
