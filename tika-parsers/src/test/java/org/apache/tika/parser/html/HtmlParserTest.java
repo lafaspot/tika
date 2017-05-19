@@ -1243,6 +1243,35 @@ public class HtmlParserTest extends TikaTest {
             testDetector(detector);
         }
     }
+    
+    @Test
+    public void testBig5MetaTag() {
+        final String path = "/test-documents/testBig5MetaTag.html";
+        final InputStream istream = HtmlParserTest.class.getResourceAsStream(path);
+        final StringWriter textBuffer = new StringWriter();
+        final BodyContentHandler textHandler = new BodyContentHandler(textBuffer);
+        final Metadata metadata = new Metadata();
+
+        try {
+            metadata.set(Metadata.CONTENT_ENCODING, StandardCharsets.UTF_8.name());
+            final ParseContext pcontext = new ParseContext();
+            final HtmlParser htmlparser = new HtmlParser();
+            htmlparser.parse(istream, textHandler, metadata, pcontext);
+        } catch (final IOException | SAXException | TikaException e) {
+            // Ignore exception.
+        }
+        try {
+            // Try to close io stream
+            istream.close();
+            textBuffer.flush();
+            textBuffer.close();
+        } catch (final IOException e) {
+            // Ignore exception.
+        }
+        
+        assertEquals(metadata.get(Metadata.CONTENT_ENCODING), StandardCharsets.UTF_8.name());
+        assertNotNull(textBuffer.toString());
+    }
 
     private void testDetector(EncodingDetector detector) throws Exception {
         Path testDocs = Paths.get(this.getClass().getResource("/test-documents").toURI());

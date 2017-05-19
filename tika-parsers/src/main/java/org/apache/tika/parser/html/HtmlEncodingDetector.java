@@ -67,6 +67,15 @@ public class HtmlEncodingDetector implements EncodingDetector {
         if (input == null) {
             return null;
         }
+        
+		// Check if there is user defined encoding in metadata
+		if (metadata != null && metadata.get(Metadata.CONTENT_ENCODING) != null) {
+			try {
+				return CharsetUtils.forName(metadata.get(Metadata.CONTENT_ENCODING));
+			} catch (final Exception e) {
+				// ignore any exception
+			}
+		}
 
         // Read enough of the text stream to capture possible meta tags
         input.mark(META_TAG_BUFFER_SIZE);
