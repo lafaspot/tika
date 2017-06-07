@@ -22,6 +22,7 @@ import java.io.InputStream;
 import org.apache.tika.config.TikaConfig;
 import org.apache.tika.detect.DefaultDetector;
 import org.apache.tika.detect.Detector;
+import org.apache.tika.exception.TikaErrorException;
 import org.apache.tika.exception.TikaException;
 import org.apache.tika.io.TemporaryResources;
 import org.apache.tika.io.TikaInputStream;
@@ -122,6 +123,8 @@ public class AutoDetectParser extends CompositeParser {
                 // Convert zip bomb exceptions to TikaExceptions
                 sch.throwIfCauseOf(e);
                 throw e;
+            } catch (final Error error) {
+            	throw new TikaErrorException("[TikaErrorException] " + error.toString() + "; message=" + error.getMessage() + "; stackTace=" + error.getStackTrace());
             }
         } finally {
             tmp.dispose();
