@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.pdfbox.contentstream.PdfTimeoutException;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSName;
 import org.apache.pdfbox.cos.COSStream;
@@ -101,11 +102,12 @@ class PDF2XHTMLPureJava extends AbstractPDF2XHTMLPureJava {
      * @param metadata PDF metadata
      * @throws SAXException  if the content handler fails to process SAX events
      * @throws TikaException if there was an exception outside of per page processing
+     * @throws PdfTimeoutException when pdf timeout
      */
     public static void process(
             PDDocument document, ContentHandler handler, ParseContext context, Metadata metadata,
             PDFPureJavaParserConfig config)
-            throws SAXException, TikaException {
+            throws SAXException, TikaException, PdfTimeoutException {
         PDF2XHTMLPureJava pdf2XHTML = null;
         try {
             // Extract text using a dummy Writer as we override the
@@ -142,7 +144,7 @@ class PDF2XHTMLPureJava extends AbstractPDF2XHTMLPureJava {
 
 
     @Override
-    public void processPage(PDPage page) throws IOException {
+    public void processPage(PDPage page) throws IOException, PdfTimeoutException {
         try {
             super.processPage(page);
         } catch (IOException e) {

@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 import org.apache.commons.io.IOExceptionWithCause;
+import org.apache.pdfbox.contentstream.PdfTimeoutException;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -82,6 +83,7 @@ class OCR2XHTML extends AbstractPDF2XHTML {
             } else {
                 throw new TikaException("Unable to extract PDF content", e);
             }
+        } catch (final PdfTimeoutException e) {
         }
         if (ocr2XHTML.exceptions.size() > 0) {
             //throw the first

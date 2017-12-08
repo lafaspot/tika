@@ -6,7 +6,7 @@
   <parent>
     <groupId>com.github.lafa.tikaNoExternal</groupId>
     <artifactId>tika-parent</artifactId>
-    <version>1.0.9</version>
+    <version>1.0.10</version>
     <relativePath>../tika-parent/pom.xml</relativePath>
   </parent>
   
@@ -20,7 +20,7 @@
 <cxf.version>3.0.3</cxf.version>
 <vorbis.version>0.8</vorbis.version>
 <commonsexec.version>1.3</commonsexec.version>
-<pdfbox.version>2.0.4</pdfbox.version>
+<pdfbox.version>1.0.0</pdfbox.version>
 <jempbox.version>1.8.12</jempbox.version>
 </properties>
 
@@ -80,12 +80,12 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>org.apache.pdfbox</groupId>
+      <groupId>com.github.lafa.pdfbox</groupId>
       <artifactId>pdfbox</artifactId>
       <version>${pdfbox.version}</version>
     </dependency>
     <dependency>
-      <groupId>org.apache.pdfbox</groupId>
+      <groupId>com.github.lafa.pdfbox</groupId>
       <artifactId>pdfbox-tools</artifactId>
       <version>${pdfbox.version}</version>
     </dependency>

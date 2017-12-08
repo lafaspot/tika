@@ -33,6 +33,7 @@ import org.apache.jempbox.xmp.XMPMetadata;
 import org.apache.jempbox.xmp.XMPSchema;
 import org.apache.jempbox.xmp.XMPSchemaDublinCore;
 import org.apache.jempbox.xmp.pdfa.XMPSchemaPDFAId;
+import org.apache.pdfbox.contentstream.PdfTimeoutException;
 import org.apache.pdfbox.cos.COSArray;
 import org.apache.pdfbox.cos.COSBase;
 import org.apache.pdfbox.cos.COSDictionary;
@@ -47,6 +48,7 @@ import org.apache.poi.util.IOUtils;
 import org.apache.tika.config.Field;
 import org.apache.tika.exception.EncryptedDocumentException;
 import org.apache.tika.exception.TikaException;
+import org.apache.tika.exception.TikaPdfTimeoutException;
 import org.apache.tika.extractor.EmbeddedDocumentExtractor;
 import org.apache.tika.extractor.EmbeddedDocumentUtil;
 import org.apache.tika.io.TikaInputStream;
@@ -154,6 +156,8 @@ public class PDFParser extends AbstractParser {
         } catch (InvalidPasswordException e) {
             metadata.set(PDF.IS_ENCRYPTED, "true");
             throw new EncryptedDocumentException(e);
+        } catch (final PdfTimeoutException e) {
+    	        throw new TikaPdfTimeoutException("PdfTimeoutException", e);
         } finally {
             if (pdfDocument != null) {
                 pdfDocument.close();
